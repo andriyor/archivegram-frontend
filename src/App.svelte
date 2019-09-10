@@ -1,11 +1,14 @@
 <script>
-	export let name;
+	import Textfield, {Input, Textarea} from '@smui/textfield';
+	import Icon from '@smui/textfield/icon';
+	let valueStandardB = '';
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
+
 </style>
 
-<h1>Hello {name}!</h1>
+
+<Textfield withLeadingIcon bind:value={valueStandardB} label="Username" input$aria-controls="helper-text-standard-b" input$aria-describedby="helper-text-standard-b">
+	<Icon class="material-icons">playlist_add</Icon>
+</Textfield>
