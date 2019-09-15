@@ -21,7 +21,8 @@
     "@smui/textfield": "^1.0.0-beta.14",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
-    "sirv-cli": "^0.4.4"
+    "sirv-cli": "^0.4.4",
+    "zuck.js": "^1.5.3"
   },
   "scripts": {
     "build": "rollup -c",
