@@ -17,16 +17,12 @@
   let searchUserName = "";
   let subscribedInstagramUser = [];
   let instagramUsersSearchResult = [];
+  let iStories = [];
 
   onMount(() => {
     fetchUsers().then(
       subscribedUsers => (subscribedInstagramUser = subscribedUsers)
     );
-    fetchStories().then(st => {
-      st.forEach(element => {
-         stories.update(element);   
-      });
-    });
   });
 
   function fetchUsers() {
@@ -35,8 +31,8 @@
       .then(myJson => myJson["users"]);
   }
 
-  function fetchStories() {
-    return fetch("http://localhost:3000/stories", {
+  function fetchStories(username) {
+    return fetch(`http://localhost:3000/stories/${username}`, {
       method: "GET",
       mode: "cors"
     }).then(response => response.json());
@@ -82,6 +78,14 @@
     subscribedInstagramUser = subscribedInstagramUser.filter(
       user => user.pk !== userPk
     );
+  }
+
+  function showStories(username) {
+    iStories.forEach(story => stories.remove(story.id));
+    fetchStories(username).then(st => {
+      iStories = st;
+      st.forEach(story => stories.update(story));
+    });
   }
 
   let stories = new Zuck("story", {
@@ -214,7 +218,7 @@
 {#if subscribedInstagramUser.length}
   <List class="demo-list" twoLine avatarList singleSelection>
     {#each subscribedInstagramUser as subscribedUser}
-      <Item>
+      <Item on:SMUI:action={() => showStories(subscribedUser.username)}>
         <Graphic
           style="background-image: url({subscribedUser.profile_pic_url}); ;
           background-size: 40px;" />
