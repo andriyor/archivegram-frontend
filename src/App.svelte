@@ -23,7 +23,9 @@
       subscribedUsers => (subscribedInstagramUser = subscribedUsers)
     );
     fetchStories().then(st => {
-      stories.update(st);
+      st.forEach(element => {
+         stories.update(element);   
+      });
     });
   });
 
